@@ -1,0 +1,670 @@
+{
+  "eval_case_results": [
+    {
+      "eval_case_index": 0,
+      "response_candidate_results": [
+        {
+          "response_index": 0,
+          "metric_results": {
+            "custom_response_quality": {
+              "metric_name": "custom_response_quality",
+              "score": 5.0,
+              "explanation": "The agent accurately called the weather tool, retrieved the information for Austin, TX, and presented the current weather and 3-day forecast in a well-structured, clear, and comprehensive format that adheres to all instructions.",
+              "rubric_verdicts": null,
+              "raw_output": null,
+              "error_message": null
+            },
+            "tool_trajectory_score": {
+              "metric_name": "tool_trajectory_score",
+              "score": 1.0,
+              "explanation": "Expected get_weather call; called: ['get_weather']",
+              "rubric_verdicts": null,
+              "raw_output": null,
+              "error_message": null
+            }
+          }
+        }
+      ]
+    },
+    {
+      "eval_case_index": 1,
+      "response_candidate_results": [
+        {
+          "response_index": 0,
+          "metric_results": {
+            "custom_response_quality": {
+              "metric_name": "custom_response_quality",
+              "score": 5.0,
+              "explanation": "The assistant executed the tool call correctly, accurately parsed all returned data, and provided a comprehensive, well-formatted response that directly answers the user's request.",
+              "rubric_verdicts": null,
+              "raw_output": null,
+              "error_message": null
+            },
+            "tool_trajectory_score": {
+              "metric_name": "tool_trajectory_score",
+              "score": 1.0,
+              "explanation": "Expected get_weather call; called: ['get_weather']",
+              "rubric_verdicts": null,
+              "raw_output": null,
+              "error_message": null
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "summary_metrics": [
+    {
+      "metric_name": "custom_response_quality",
+      "num_cases_total": 2,
+      "num_cases_valid": 2,
+      "num_cases_error": 0,
+      "mean_score": 5.0,
+      "stdev_score": 0.0,
+      "pass_rate": null
+    },
+    {
+      "metric_name": "tool_trajectory_score",
+      "num_cases_total": 2,
+      "num_cases_valid": 2,
+      "num_cases_error": 0,
+      "mean_score": 1.0,
+      "stdev_score": 0.0,
+      "pass_rate": null
+    }
+  ],
+  "win_rates": null,
+  "evaluation_dataset": [
+    {
+      "bigquery_source": null,
+      "gcs_source": null,
+      "eval_cases": [
+        {
+          "prompt": {
+            "parts": [
+              {
+                "media_resolution": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "file_data": null,
+                "function_call": null,
+                "function_response": null,
+                "inline_data": null,
+                "text": "What's the weather like in Austin, TX?",
+                "thought": null,
+                "thought_signature": null,
+                "video_metadata": null,
+                "tool_call": null,
+                "tool_response": null,
+                "part_metadata": null,
+                "audio_transcription": null,
+                "media_processing": null,
+                "speech_metadata": null
+              }
+            ],
+            "role": "user"
+          },
+          "responses": [
+            {
+              "response": {
+                "parts": [
+                  {
+                    "media_resolution": null,
+                    "code_execution_result": null,
+                    "executable_code": null,
+                    "file_data": null,
+                    "function_call": null,
+                    "function_response": null,
+                    "inline_data": null,
+                    "text": "Here is the current weather and 3-day forecast for **Austin, Texas, United States**:\n\n### **Current Conditions**\n- **Condition:** Clear sky\n- **Temperature:** 85.4\u00b0F (29.7\u00b0C)\n- **Feels Like:** 83.6\u00b0F (28.7\u00b0C)\n- **Humidity:** 37%\n- **Wind Speed:** 8.9 mph (14.3 km/h)\n\n---\n\n### **3-Day Forecast**\n- **Day 1 (2026-10-24):** Overcast | High: 86.5\u00b0F (30.3\u00b0C) / Low: 58.6\u00b0F (14.8\u00b0C) | Precipitation Chance: 1%\n- **Day 2 (2026-10-25):** Overcast | High: 83.0\u00b0F (28.3\u00b0C) / Low: 62.0\u00b0F (16.7\u00b0C) | Precipitation Chance: 1%\n- **Day 3 (2026-10-26):** Overcast | High: 80.1\u00b0F (26.7\u00b0C) / Low: 56.5\u00b0F (13.6\u00b0C) | Precipitation Chance: 2%",
+                    "thought": null,
+                    "thought_signature": null,
+                    "video_metadata": null,
+                    "tool_call": null,
+                    "tool_response": null,
+                    "part_metadata": null,
+                    "audio_transcription": null,
+                    "media_processing": null,
+                    "speech_metadata": null
+                  }
+                ],
+                "role": "model"
+              }
+            }
+          ],
+          "reference": null,
+          "system_instruction": null,
+          "conversation_history": null,
+          "rubric_groups": null,
+          "eval_case_id": "weather_by_city",
+          "intermediate_events": null,
+          "agent_info": null,
+          "agent_data": {
+            "agents": {
+              "weather_agent": {
+                "agent_id": "weather_agent",
+                "agent_type": "LlmAgent",
+                "description": "Provides current weather conditions and multi-day forecasts for cities and zip codes.",
+                "instruction": "You are a helpful weather assistant that provides accurate, real-time weather conditions and 3-day forecasts for cities and postal/zip codes worldwide.\n\nRules:\n1. Always call the `get_weather` tool whenever a user asks for the weather or forecast for a city or zip code.\n2. In your response, clearly state the resolved location name, current temperature (in both \u00b0F and \u00b0C), feels-like temperature, current sky condition, humidity, wind speed, and a summary of the 3-day forecast (high/low temperatures and precipitation chance).\n3. Never guess, invent, or hallucinate weather data. If `get_weather` returns an error status, politely inform the user that the location could not be found and ask for a valid city name or 5-digit zip code.\n4. Only answer questions related to weather and forecasts. If a user asks about unrelated topics (such as coding, medical advice, finance, or general trivia), politely decline and explain that you only assist with weather information.",
+                "tools": [
+                  {
+                    "retrieval": null,
+                    "computer_use": null,
+                    "file_search": null,
+                    "google_search": null,
+                    "google_maps": null,
+                    "code_execution": null,
+                    "enterprise_web_search": null,
+                    "function_declarations": [
+                      {
+                        "description": "Fetches current weather conditions and a 3-day forecast for a city or zip code.\n\nArgs:\n    location: The city name (e.g., 'Austin, TX', 'Tokyo') or postal/zip code (e.g., '10001').\n\nReturns:\n    A dictionary containing 'status', resolved 'location', 'current' weather metrics,\n    and a 3-day 'forecast' list, or an 'error_message' if the location cannot be resolved.",
+                        "name": "get_weather",
+                        "parameters": null,
+                        "parameters_json_schema": {
+                          "properties": {
+                            "location": {
+                              "title": "Location",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "location"
+                          ],
+                          "title": "get_weatherParams",
+                          "type": "object"
+                        },
+                        "response": null,
+                        "response_json_schema": {
+                          "additionalProperties": true,
+                          "type": "object"
+                        },
+                        "behavior": null
+                      }
+                    ],
+                    "google_search_retrieval": null,
+                    "parallel_ai_search": null,
+                    "url_context": null,
+                    "mcp_servers": null,
+                    "exa_ai_search": null
+                  }
+                ],
+                "sub_agents": []
+              }
+            },
+            "turns": [
+              {
+                "turn_index": 0,
+                "turn_id": "turn_0",
+                "events": [
+                  {
+                    "author": "weather_agent",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": {
+                            "id": "call_1835924",
+                            "args": {
+                              "location": "Austin, TX"
+                            },
+                            "name": "get_weather",
+                            "partial_args": null,
+                            "will_continue": null
+                          },
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": null,
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        }
+                      ],
+                      "role": "model"
+                    },
+                    "event_time": "2026-10-24T22:39:26.867178Z",
+                    "state_delta": null,
+                    "active_tools": null
+                  },
+                  {
+                    "author": "weather_agent",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": {
+                            "will_continue": null,
+                            "scheduling": null,
+                            "parts": null,
+                            "id": "call_1835924",
+                            "name": "get_weather",
+                            "response": {
+                              "status": "success",
+                              "location": "Austin, Texas, United States",
+                              "coordinates": {
+                                "latitude": 30.26715,
+                                "longitude": -97.74306
+                              },
+                              "timezone": "America/Chicago",
+                              "current": {
+                                "condition": "Clear sky",
+                                "temperature_f": 85.4,
+                                "temperature_c": 29.7,
+                                "feels_like_f": 83.6,
+                                "feels_like_c": 28.7,
+                                "humidity_percent": 37,
+                                "wind_speed_mph": 8.9,
+                                "wind_speed_kmh": 14.3
+                              },
+                              "forecast": [
+                                {
+                                  "date": "2026-10-24",
+                                  "condition": "Overcast",
+                                  "high_f": 86.5,
+                                  "high_c": 30.3,
+                                  "low_f": 58.6,
+                                  "low_c": 14.8,
+                                  "precipitation_chance_percent": 1
+                                },
+                                {
+                                  "date": "2026-10-25",
+                                  "condition": "Overcast",
+                                  "high_f": 83.0,
+                                  "high_c": 28.3,
+                                  "low_f": 62.0,
+                                  "low_c": 16.7,
+                                  "precipitation_chance_percent": 1
+                                },
+                                {
+                                  "date": "2026-10-26",
+                                  "condition": "Overcast",
+                                  "high_f": 80.1,
+                                  "high_c": 26.7,
+                                  "low_f": 56.5,
+                                  "low_c": 13.6,
+                                  "precipitation_chance_percent": 2
+                                }
+                              ]
+                            }
+                          },
+                          "inline_data": null,
+                          "text": null,
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        }
+                      ],
+                      "role": "user"
+                    },
+                    "event_time": "2026-10-24T22:39:32.501575Z",
+                    "state_delta": null,
+                    "active_tools": null
+                  },
+                  {
+                    "author": "weather_agent",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "Here is the current weather and 3-day forecast for **Austin, Texas, United States**:\n\n### **Current Conditions**\n- **Condition:** Clear sky\n- **Temperature:** 85.4\u00b0F (29.7\u00b0C)\n- **Feels Like:** 83.6\u00b0F (28.7\u00b0C)\n- **Humidity:** 37%\n- **Wind Speed:** 8.9 mph (14.3 km/h)\n\n---\n\n### **3-Day Forecast**\n- **Day 1 (2026-10-24):** Overcast | High: 86.5\u00b0F (30.3\u00b0C) / Low: 58.6\u00b0F (14.8\u00b0C) | Precipitation Chance: 1%\n- **Day 2 (2026-10-25):** Overcast | High: 83.0\u00b0F (28.3\u00b0C) / Low: 62.0\u00b0F (16.7\u00b0C) | Precipitation Chance: 1%\n- **Day 3 (2026-10-26):** Overcast | High: 80.1\u00b0F (26.7\u00b0C) / Low: 56.5\u00b0F (13.6\u00b0C) | Precipitation Chance: 2%",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        }
+                      ],
+                      "role": "model"
+                    },
+                    "event_time": "2026-10-24T22:39:32.503608Z",
+                    "state_delta": null,
+                    "active_tools": null
+                  }
+                ]
+              }
+            ]
+          },
+          "user_scenario": null,
+          "interactions_data_source": null
+        },
+        {
+          "prompt": {
+            "parts": [
+              {
+                "media_resolution": null,
+                "code_execution_result": null,
+                "executable_code": null,
+                "file_data": null,
+                "function_call": null,
+                "function_response": null,
+                "inline_data": null,
+                "text": "Give me the weather forecast for zip code 10001.",
+                "thought": null,
+                "thought_signature": null,
+                "video_metadata": null,
+                "tool_call": null,
+                "tool_response": null,
+                "part_metadata": null,
+                "audio_transcription": null,
+                "media_processing": null,
+                "speech_metadata": null
+              }
+            ],
+            "role": "user"
+          },
+          "responses": [
+            {
+              "response": {
+                "parts": [
+                  {
+                    "media_resolution": null,
+                    "code_execution_result": null,
+                    "executable_code": null,
+                    "file_data": null,
+                    "function_call": null,
+                    "function_response": null,
+                    "inline_data": null,
+                    "text": "Here is the current weather and 3-day forecast for **New York City, NY (10001), United States**:\n\n### **Current Conditions**\n- **Condition:** Clear sky\n- **Temperature:** 55.9\u00b0F (13.3\u00b0C)\n- **Feels Like:** 49.9\u00b0F (9.9\u00b0C)\n- **Humidity:** 40%\n- **Wind Speed:** 5 mph (8 km/h)\n\n---\n\n### **3-Day Forecast**\n- **Day 1 (2026-10-24):** Overcast  \n  - **High:** 63.5\u00b0F (17.5\u00b0C) | **Low:** 40.7\u00b0F (4.8\u00b0C)  \n  - **Precipitation Chance:** 0%\n\n- **Day 2 (2026-10-25):** Clear sky  \n  - **High:** 67.8\u00b0F (19.9\u00b0C) | **Low:** 38.0\u00b0F (3.3\u00b0C)  \n  - **Precipitation Chance:** 0%\n\n- **Day 3 (2026-10-26):** Overcast  \n  - **High:** 71.3\u00b0F (21.8\u00b0C) | **Low:** 41.4\u00b0F (5.2\u00b0C)  \n  - **Precipitation Chance:** 0%",
+                    "thought": null,
+                    "thought_signature": null,
+                    "video_metadata": null,
+                    "tool_call": null,
+                    "tool_response": null,
+                    "part_metadata": null,
+                    "audio_transcription": null,
+                    "media_processing": null,
+                    "speech_metadata": null
+                  }
+                ],
+                "role": "model"
+              }
+            }
+          ],
+          "reference": null,
+          "system_instruction": null,
+          "conversation_history": null,
+          "rubric_groups": null,
+          "eval_case_id": "weather_by_zip",
+          "intermediate_events": null,
+          "agent_info": null,
+          "agent_data": {
+            "agents": {
+              "weather_agent": {
+                "agent_id": "weather_agent",
+                "agent_type": "LlmAgent",
+                "description": "Provides current weather conditions and multi-day forecasts for cities and zip codes.",
+                "instruction": "You are a helpful weather assistant that provides accurate, real-time weather conditions and 3-day forecasts for cities and postal/zip codes worldwide.\n\nRules:\n1. Always call the `get_weather` tool whenever a user asks for the weather or forecast for a city or zip code.\n2. In your response, clearly state the resolved location name, current temperature (in both \u00b0F and \u00b0C), feels-like temperature, current sky condition, humidity, wind speed, and a summary of the 3-day forecast (high/low temperatures and precipitation chance).\n3. Never guess, invent, or hallucinate weather data. If `get_weather` returns an error status, politely inform the user that the location could not be found and ask for a valid city name or 5-digit zip code.\n4. Only answer questions related to weather and forecasts. If a user asks about unrelated topics (such as coding, medical advice, finance, or general trivia), politely decline and explain that you only assist with weather information.",
+                "tools": [
+                  {
+                    "retrieval": null,
+                    "computer_use": null,
+                    "file_search": null,
+                    "google_search": null,
+                    "google_maps": null,
+                    "code_execution": null,
+                    "enterprise_web_search": null,
+                    "function_declarations": [
+                      {
+                        "description": "Fetches current weather conditions and a 3-day forecast for a city or zip code.\n\nArgs:\n    location: The city name (e.g., 'Austin, TX', 'Tokyo') or postal/zip code (e.g., '10001').\n\nReturns:\n    A dictionary containing 'status', resolved 'location', 'current' weather metrics,\n    and a 3-day 'forecast' list, or an 'error_message' if the location cannot be resolved.",
+                        "name": "get_weather",
+                        "parameters": null,
+                        "parameters_json_schema": {
+                          "properties": {
+                            "location": {
+                              "title": "Location",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "location"
+                          ],
+                          "title": "get_weatherParams",
+                          "type": "object"
+                        },
+                        "response": null,
+                        "response_json_schema": {
+                          "additionalProperties": true,
+                          "type": "object"
+                        },
+                        "behavior": null
+                      }
+                    ],
+                    "google_search_retrieval": null,
+                    "parallel_ai_search": null,
+                    "url_context": null,
+                    "mcp_servers": null,
+                    "exa_ai_search": null
+                  }
+                ],
+                "sub_agents": []
+              }
+            },
+            "turns": [
+              {
+                "turn_index": 0,
+                "turn_id": "turn_0",
+                "events": [
+                  {
+                    "author": "weather_agent",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": {
+                            "id": "call_2030356",
+                            "args": {
+                              "location": "10001"
+                            },
+                            "name": "get_weather",
+                            "partial_args": null,
+                            "will_continue": null
+                          },
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": null,
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        }
+                      ],
+                      "role": "model"
+                    },
+                    "event_time": "2026-10-24T22:39:26.910833Z",
+                    "state_delta": null,
+                    "active_tools": null
+                  },
+                  {
+                    "author": "weather_agent",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": {
+                            "will_continue": null,
+                            "scheduling": null,
+                            "parts": null,
+                            "id": "call_2030356",
+                            "name": "get_weather",
+                            "response": {
+                              "status": "success",
+                              "location": "New York City, NY (10001), United States",
+                              "coordinates": {
+                                "latitude": 40.7484,
+                                "longitude": -73.9967
+                              },
+                              "timezone": "America/New_York",
+                              "current": {
+                                "condition": "Clear sky",
+                                "temperature_f": 55.9,
+                                "temperature_c": 13.3,
+                                "feels_like_f": 49.9,
+                                "feels_like_c": 9.9,
+                                "humidity_percent": 40,
+                                "wind_speed_mph": 5.0,
+                                "wind_speed_kmh": 8.0
+                              },
+                              "forecast": [
+                                {
+                                  "date": "2026-10-24",
+                                  "condition": "Overcast",
+                                  "high_f": 63.5,
+                                  "high_c": 17.5,
+                                  "low_f": 40.7,
+                                  "low_c": 4.8,
+                                  "precipitation_chance_percent": 0
+                                },
+                                {
+                                  "date": "2026-10-25",
+                                  "condition": "Clear sky",
+                                  "high_f": 67.8,
+                                  "high_c": 19.9,
+                                  "low_f": 38.0,
+                                  "low_c": 3.3,
+                                  "precipitation_chance_percent": 0
+                                },
+                                {
+                                  "date": "2026-10-26",
+                                  "condition": "Overcast",
+                                  "high_f": 71.3,
+                                  "high_c": 21.8,
+                                  "low_f": 41.4,
+                                  "low_c": 5.2,
+                                  "precipitation_chance_percent": 0
+                                }
+                              ]
+                            }
+                          },
+                          "inline_data": null,
+                          "text": null,
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        }
+                      ],
+                      "role": "user"
+                    },
+                    "event_time": "2026-10-24T22:39:52.887027Z",
+                    "state_delta": null,
+                    "active_tools": null
+                  },
+                  {
+                    "author": "weather_agent",
+                    "content": {
+                      "parts": [
+                        {
+                          "media_resolution": null,
+                          "code_execution_result": null,
+                          "executable_code": null,
+                          "file_data": null,
+                          "function_call": null,
+                          "function_response": null,
+                          "inline_data": null,
+                          "text": "Here is the current weather and 3-day forecast for **New York City, NY (10001), United States**:\n\n### **Current Conditions**\n- **Condition:** Clear sky\n- **Temperature:** 55.9\u00b0F (13.3\u00b0C)\n- **Feels Like:** 49.9\u00b0F (9.9\u00b0C)\n- **Humidity:** 40%\n- **Wind Speed:** 5 mph (8 km/h)\n\n---\n\n### **3-Day Forecast**\n- **Day 1 (2026-10-24):** Overcast  \n  - **High:** 63.5\u00b0F (17.5\u00b0C) | **Low:** 40.7\u00b0F (4.8\u00b0C)  \n  - **Precipitation Chance:** 0%\n\n- **Day 2 (2026-10-25):** Clear sky  \n  - **High:** 67.8\u00b0F (19.9\u00b0C) | **Low:** 38.0\u00b0F (3.3\u00b0C)  \n  - **Precipitation Chance:** 0%\n\n- **Day 3 (2026-10-26):** Overcast  \n  - **High:** 71.3\u00b0F (21.8\u00b0C) | **Low:** 41.4\u00b0F (5.2\u00b0C)  \n  - **Precipitation Chance:** 0%",
+                          "thought": null,
+                          "thought_signature": null,
+                          "video_metadata": null,
+                          "tool_call": null,
+                          "tool_response": null,
+                          "part_metadata": null,
+                          "audio_transcription": null,
+                          "media_processing": null,
+                          "speech_metadata": null
+                        }
+                      ],
+                      "role": "model"
+                    },
+                    "event_time": "2026-10-24T22:39:52.889113Z",
+                    "state_delta": null,
+                    "active_tools": null
+                  }
+                ]
+              }
+            ]
+          },
+          "user_scenario": null,
+          "interactions_data_source": null
+        }
+      ],
+      "eval_dataset_df": null,
+      "candidate_name": null
+    }
+  ],
+  "metadata": {
+    "candidate_names": [
+      "candidate_1"
+    ],
+    "dataset_name": null,
+    "dataset_id": null,
+    "creation_timestamp": "2026-10-24T22:40:49.849490Z",
+    "dataset": [
+      {
+        "prompt_display_text": "What's the weather like in Austin, TX?",
+        "prompt_raw_json": "{\n  \"parts\": [\n    {\n      \"text\": \"What's the weather like in Austin, TX?\"\n    }\n  ],\n  \"role\": \"user\"\n}",
+        "reference": "",
+        "reference_raw_json": "",
+        "response_display_text": "Here is the current weather and 3-day forecast for **Austin, Texas, United States**:\n\n### **Current Conditions**\n- **Condition:** Clear sky\n- **Temperature:** 85.4\u00b0F (29.7\u00b0C)\n- **Feels Like:** 83.6\u00b0F (28.7\u00b0C)\n- **Humidity:** 37%\n- **Wind Speed:** 8.9 mph (14.3 km/h)\n\n---\n\n### **3-Day Forecast**\n- **Day 1 (2026-10-24):** Overcast | High: 86.5\u00b0F (30.3\u00b0C) / Low: 58.6\u00b0F (14.8\u00b0C) | Precipitation Chance: 1%\n- **Day 2 (2026-10-25):** Overcast | High: 83.0\u00b0F (28.3\u00b0C) / Low: 62.0\u00b0F (16.7\u00b0C) | Precipitation Chance: 1%\n- **Day 3 (2026-10-26):** Overcast | High: 80.1\u00b0F (26.7\u00b0C) / Low: 56.5\u00b0F (13.6\u00b0C) | Precipitation Chance: 2%",
+        "response_raw_json": "{\n  \"parts\": [\n    {\n      \"text\": \"Here is the current weather and 3-day forecast for **Austin, Texas, United States**:\\n\\n### **Current Conditions**\\n- **Condition:** Clear sky\\n- **Temperature:** 85.4\u00b0F (29.7\u00b0C)\\n- **Feels Like:** 83.6\u00b0F (28.7\u00b0C)\\n- **Humidity:** 37%\\n- **Wind Speed:** 8.9 mph (14.3 km/h)\\n\\n---\\n\\n### **3-Day Forecast**\\n- **Day 1 (2026-10-24):** Overcast | High: 86.5\u00b0F (30.3\u00b0C) / Low: 58.6\u00b0F (14.8\u00b0C) | Precipitation Chance: 1%\\n- **Day 2 (2026-10-25):** Overcast | High: 83.0\u00b0F (28.3\u00b0C) / Low: 62.0\u00b0F (16.7\u00b0C) | Precipitation Chance: 1%\\n- **Day 3 (2026-10-26):** Overcast | High: 80.1\u00b0F (26.7\u00b0C) / Low: 56.5\u00b0F (13.6\u00b0C) | Precipitation Chance: 2%\"\n    }\n  ],\n  \"role\": \"model\"\n}",
+        "intermediate_events": null,
+        "agent_data": "{\"agents\": {\"weather_agent\": {\"agent_id\": \"weather_agent\", \"agent_type\": \"LlmAgent\", \"description\": \"Provides current weather conditions and multi-day forecasts for cities and zip codes.\", \"instruction\": \"You are a helpful weather assistant that provides accurate, real-time weather conditions and 3-day forecasts for cities and postal/zip codes worldwide.\\n\\nRules:\\n1. Always call the `get_weather` tool whenever a user asks for the weather or forecast for a city or zip code.\\n2. In your response, clearly state the resolved location name, current temperature (in both \u00b0F and \u00b0C), feels-like temperature, current sky condition, humidity, wind speed, and a summary of the 3-day forecast (high/low temperatures and precipitation chance).\\n3. Never guess, invent, or hallucinate weather data. If `get_weather` returns an error status, politely inform the user that the location could not be found and ask for a valid city name or 5-digit zip code.\\n4. Only answer questions related to weather and forecasts. If a user asks about unrelated topics (such as coding, medical advice, finance, or general trivia), politely decline and explain that you only assist with weather information.\", \"tools\": [{\"function_declarations\": [{\"description\": \"Fetches current weather conditions and a 3-day forecast for a city or zip code.\\n\\nArgs:\\n    location: The city name (e.g., 'Austin, TX', 'Tokyo') or postal/zip code (e.g., '10001').\\n\\nReturns:\\n    A dictionary containing 'status', resolved 'location', 'current' weather metrics,\\n    and a 3-day 'forecast' list, or an 'error_message' if the location cannot be resolved.\", \"name\": \"get_weather\", \"parameters_json_schema\": {\"properties\": {\"location\": {\"title\": \"Location\", \"type\": \"string\"}}, \"required\": [\"location\"], \"title\": \"get_weatherParams\", \"type\": \"object\"}, \"response_json_schema\": {\"additionalProperties\": true, \"type\": \"object\"}}]}], \"sub_agents\": []}}, \"turns\": [{\"turn_index\": 0, \"turn_id\": \"turn_0\", \"events\": [{\"author\": \"weather_agent\", \"content\": {\"parts\": [{\"function_call\": {\"id\": \"call_1835924\", \"args\": {\"location\": \"Austin, TX\"}, \"name\": \"get_weather\"}}], \"role\": \"model\"}, \"event_time\": \"2026-10-24T22:39:26.867178Z\"}, {\"author\": \"weather_agent\", \"content\": {\"parts\": [{\"function_response\": {\"id\": \"call_1835924\", \"name\": \"get_weather\", \"response\": {\"status\": \"success\", \"location\": \"Austin, Texas, United States\", \"coordinates\": {\"latitude\": 30.26715, \"longitude\": -97.74306}, \"timezone\": \"America/Chicago\", \"current\": {\"condition\": \"Clear sky\", \"temperature_f\": 85.4, \"temperature_c\": 29.7, \"feels_like_f\": 83.6, \"feels_like_c\": 28.7, \"humidity_percent\": 37, \"wind_speed_mph\": 8.9, \"wind_speed_kmh\": 14.3}, \"forecast\": [{\"date\": \"2026-10-24\", \"condition\": \"Overcast\", \"high_f\": 86.5, \"high_c\": 30.3, \"low_f\": 58.6, \"low_c\": 14.8, \"precipitation_chance_percent\": 1}, {\"date\": \"2026-10-25\", \"condition\": \"Overcast\", \"high_f\": 83.0, \"high_c\": 28.3, \"low_f\": 62.0, \"low_c\": 16.7, \"precipitation_chance_percent\": 1}, {\"date\": \"2026-10-26\", \"condition\": \"Overcast\", \"high_f\": 80.1, \"high_c\": 26.7, \"low_f\": 56.5, \"low_c\": 13.6, \"precipitation_chance_percent\": 2}]}}}], \"role\": \"user\"}, \"event_time\": \"2026-10-24T22:39:32.501575Z\"}, {\"author\": \"weather_agent\", \"content\": {\"parts\": [{\"text\": \"Here is the current weather and 3-day forecast for **Austin, Texas, United States**:\\n\\n### **Current Conditions**\\n- **Condition:** Clear sky\\n- **Temperature:** 85.4\u00b0F (29.7\u00b0C)\\n- **Feels Like:** 83.6\u00b0F (28.7\u00b0C)\\n- **Humidity:** 37%\\n- **Wind Speed:** 8.9 mph (14.3 km/h)\\n\\n---\\n\\n### **3-Day Forecast**\\n- **Day 1 (2026-10-24):** Overcast | High: 86.5\u00b0F (30.3\u00b0C) / Low: 58.6\u00b0F (14.8\u00b0C) | Precipitation Chance: 1%\\n- **Day 2 (2026-10-25):** Overcast | High: 83.0\u00b0F (28.3\u00b0C) / Low: 62.0\u00b0F (16.7\u00b0C) | Precipitation Chance: 1%\\n- **Day 3 (2026-10-26):** Overcast | High: 80.1\u00b0F (26.7\u00b0C) / Low: 56.5\u00b0F (13.6\u00b0C) | Precipitation Chance: 2%\"}], \"role\": \"model\"}, \"event_time\": \"2026-10-24T22:39:32.503608Z\"}]}]}"
+      },
+      {
+        "prompt_display_text": "Give me the weather forecast for zip code 10001.",
+        "prompt_raw_json": "{\n  \"parts\": [\n    {\n      \"text\": \"Give me the weather forecast for zip code 10001.\"\n    }\n  ],\n  \"role\": \"user\"\n}",
+        "reference": "",
+        "reference_raw_json": "",
+        "response_display_text": "Here is the current weather and 3-day forecast for **New York City, NY (10001), United States**:\n\n### **Current Conditions**\n- **Condition:** Clear sky\n- **Temperature:** 55.9\u00b0F (13.3\u00b0C)\n- **Feels Like:** 49.9\u00b0F (9.9\u00b0C)\n- **Humidity:** 40%\n- **Wind Speed:** 5 mph (8 km/h)\n\n---\n\n### **3-Day Forecast**\n- **Day 1 (2026-10-24):** Overcast  \n  - **High:** 63.5\u00b0F (17.5\u00b0C) | **Low:** 40.7\u00b0F (4.8\u00b0C)  \n  - **Precipitation Chance:** 0%\n\n- **Day 2 (2026-10-25):** Clear sky  \n  - **High:** 67.8\u00b0F (19.9\u00b0C) | **Low:** 38.0\u00b0F (3.3\u00b0C)  \n  - **Precipitation Chance:** 0%\n\n- **Day 3 (2026-10-26):** Overcast  \n  - **High:** 71.3\u00b0F (21.8\u00b0C) | **Low:** 41.4\u00b0F (5.2\u00b0C)  \n  - **Precipitation Chance:** 0%",
+        "response_raw_json": "{\n  \"parts\": [\n    {\n      \"text\": \"Here is the current weather and 3-day forecast for **New York City, NY (10001), United States**:\\n\\n### **Current Conditions**\\n- **Condition:** Clear sky\\n- **Temperature:** 55.9\u00b0F (13.3\u00b0C)\\n- **Feels Like:** 49.9\u00b0F (9.9\u00b0C)\\n- **Humidity:** 40%\\n- **Wind Speed:** 5 mph (8 km/h)\\n\\n---\\n\\n### **3-Day Forecast**\\n- **Day 1 (2026-10-24):** Overcast  \\n  - **High:** 63.5\u00b0F (17.5\u00b0C) | **Low:** 40.7\u00b0F (4.8\u00b0C)  \\n  - **Precipitation Chance:** 0%\\n\\n- **Day 2 (2026-10-25):** Clear sky  \\n  - **High:** 67.8\u00b0F (19.9\u00b0C) | **Low:** 38.0\u00b0F (3.3\u00b0C)  \\n  - **Precipitation Chance:** 0%\\n\\n- **Day 3 (2026-10-26):** Overcast  \\n  - **High:** 71.3\u00b0F (21.8\u00b0C) | **Low:** 41.4\u00b0F (5.2\u00b0C)  \\n  - **Precipitation Chance:** 0%\"\n    }\n  ],\n  \"role\": \"model\"\n}",
+        "intermediate_events": null,
+        "agent_data": "{\"agents\": {\"weather_agent\": {\"agent_id\": \"weather_agent\", \"agent_type\": \"LlmAgent\", \"description\": \"Provides current weather conditions and multi-day forecasts for cities and zip codes.\", \"instruction\": \"You are a helpful weather assistant that provides accurate, real-time weather conditions and 3-day forecasts for cities and postal/zip codes worldwide.\\n\\nRules:\\n1. Always call the `get_weather` tool whenever a user asks for the weather or forecast for a city or zip code.\\n2. In your response, clearly state the resolved location name, current temperature (in both \u00b0F and \u00b0C), feels-like temperature, current sky condition, humidity, wind speed, and a summary of the 3-day forecast (high/low temperatures and precipitation chance).\\n3. Never guess, invent, or hallucinate weather data. If `get_weather` returns an error status, politely inform the user that the location could not be found and ask for a valid city name or 5-digit zip code.\\n4. Only answer questions related to weather and forecasts. If a user asks about unrelated topics (such as coding, medical advice, finance, or general trivia), politely decline and explain that you only assist with weather information.\", \"tools\": [{\"function_declarations\": [{\"description\": \"Fetches current weather conditions and a 3-day forecast for a city or zip code.\\n\\nArgs:\\n    location: The city name (e.g., 'Austin, TX', 'Tokyo') or postal/zip code (e.g., '10001').\\n\\nReturns:\\n    A dictionary containing 'status', resolved 'location', 'current' weather metrics,\\n    and a 3-day 'forecast' list, or an 'error_message' if the location cannot be resolved.\", \"name\": \"get_weather\", \"parameters_json_schema\": {\"properties\": {\"location\": {\"title\": \"Location\", \"type\": \"string\"}}, \"required\": [\"location\"], \"title\": \"get_weatherParams\", \"type\": \"object\"}, \"response_json_schema\": {\"additionalProperties\": true, \"type\": \"object\"}}]}], \"sub_agents\": []}}, \"turns\": [{\"turn_index\": 0, \"turn_id\": \"turn_0\", \"events\": [{\"author\": \"weather_agent\", \"content\": {\"parts\": [{\"function_call\": {\"id\": \"call_2030356\", \"args\": {\"location\": \"10001\"}, \"name\": \"get_weather\"}}], \"role\": \"model\"}, \"event_time\": \"2026-10-24T22:39:26.910833Z\"}, {\"author\": \"weather_agent\", \"content\": {\"parts\": [{\"function_response\": {\"id\": \"call_2030356\", \"name\": \"get_weather\", \"response\": {\"status\": \"success\", \"location\": \"New York City, NY (10001), United States\", \"coordinates\": {\"latitude\": 40.7484, \"longitude\": -73.9967}, \"timezone\": \"America/New_York\", \"current\": {\"condition\": \"Clear sky\", \"temperature_f\": 55.9, \"temperature_c\": 13.3, \"feels_like_f\": 49.9, \"feels_like_c\": 9.9, \"humidity_percent\": 40, \"wind_speed_mph\": 5.0, \"wind_speed_kmh\": 8.0}, \"forecast\": [{\"date\": \"2026-10-24\", \"condition\": \"Overcast\", \"high_f\": 63.5, \"high_c\": 17.5, \"low_f\": 40.7, \"low_c\": 4.8, \"precipitation_chance_percent\": 0}, {\"date\": \"2026-10-25\", \"condition\": \"Clear sky\", \"high_f\": 67.8, \"high_c\": 19.9, \"low_f\": 38.0, \"low_c\": 3.3, \"precipitation_chance_percent\": 0}, {\"date\": \"2026-10-26\", \"condition\": \"Overcast\", \"high_f\": 71.3, \"high_c\": 21.8, \"low_f\": 41.4, \"low_c\": 5.2, \"precipitation_chance_percent\": 0}]}}}], \"role\": \"user\"}, \"event_time\": \"2026-10-24T22:39:52.887027Z\"}, {\"author\": \"weather_agent\", \"content\": {\"parts\": [{\"text\": \"Here is the current weather and 3-day forecast for **New York City, NY (10001), United States**:\\n\\n### **Current Conditions**\\n- **Condition:** Clear sky\\n- **Temperature:** 55.9\u00b0F (13.3\u00b0C)\\n- **Feels Like:** 49.9\u00b0F (9.9\u00b0C)\\n- **Humidity:** 40%\\n- **Wind Speed:** 5 mph (8 km/h)\\n\\n---\\n\\n### **3-Day Forecast**\\n- **Day 1 (2026-10-24):** Overcast  \\n  - **High:** 63.5\u00b0F (17.5\u00b0C) | **Low:** 40.7\u00b0F (4.8\u00b0C)  \\n  - **Precipitation Chance:** 0%\\n\\n- **Day 2 (2026-10-25):** Clear sky  \\n  - **High:** 67.8\u00b0F (19.9\u00b0C) | **Low:** 38.0\u00b0F (3.3\u00b0C)  \\n  - **Precipitation Chance:** 0%\\n\\n- **Day 3 (2026-10-26):** Overcast  \\n  - **High:** 71.3\u00b0F (21.8\u00b0C) | **Low:** 41.4\u00b0F (5.2\u00b0C)  \\n  - **Precipitation Chance:** 0%\"}], \"role\": \"model\"}, \"event_time\": \"2026-10-24T22:39:52.889113Z\"}]}]}"
+      }
+    ]
+  },
+  "agent_info": null
+}

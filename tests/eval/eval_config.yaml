@@ -1,0 +1,36 @@
+metrics_to_run:
+  - custom_response_quality
+  - tool_trajectory_score
+
+custom_metrics:
+  # Default: local LLM-as-judge (see response_quality.py). Runs in-process via
+  # google-genai on Agent Platform (ADC) or Google AI Studio (GEMINI_API_KEY).
+  - name: custom_response_quality
+    custom_function_file: response_quality.py
+  - name: tool_trajectory_score
+    custom_function: |
+      def evaluate(instance):
+          prompt_obj = instance.get("prompt") or {}
+          prompt_text = str(prompt_obj).lower()
+          turns = (instance.get("agent_data") or {}).get("turns", [])
+          called_tools = []
+          for turn in turns:
+              for event in turn.get("events", []):
+                  for part in (event.get("content") or {}).get("parts", []):
+                      if "function_call" in part:
+                          called_tools.append(part["function_call"].get("name"))
+          expects_weather_tool = any(
+              kw in prompt_text for kw in ["weather", "forecast", "temperature", "zip"]
+          )
+          if expects_weather_tool:
+              score = 1.0 if "get_weather" in called_tools else 0.0
+              explanation = f"Expected get_weather call; called: {called_tools}"
+          else:
+              score = 1.0 if not called_tools else 0.0
+              explanation = f"Expected no tool call for non-weather prompt; called: {called_tools}"
+          return {"score": score, "explanation": explanation}
+  - name: agent_turn_count
+    custom_function: |
+      def evaluate(instance):
+          turns = (instance.get("agent_data") or {}).get("turns", [])
+          return {'score': len(turns)}

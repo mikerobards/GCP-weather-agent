@@ -1,0 +1,42 @@
+{
+  "eval_cases": [
+    {
+      "eval_case_id": "weather_by_city",
+      "prompt": {
+        "role": "user",
+        "parts": [{"text": "What's the weather like in Austin, TX?"}]
+      }
+    },
+    {
+      "eval_case_id": "weather_by_zip",
+      "prompt": {
+        "role": "user",
+        "parts": [{"text": "Give me the weather forecast for zip code 10001."}]
+      }
+    },
+    {
+      "eval_case_id": "unknown_location",
+      "prompt": {
+        "role": "user",
+        "parts": [{"text": "What is the weather in ZzzNotARealPlace99999?"}]
+      }
+    },
+    {
+      "eval_case_id": "out_of_scope_query",
+      "prompt": {
+        "role": "user",
+        "parts": [{"text": "What is the capital of France?"}]
+      },
+      "reference": {
+        "response": {
+          "role": "model",
+          "parts": [
+            {
+              "text": "I can only assist with weather information and forecasts for cities and zip codes."
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
